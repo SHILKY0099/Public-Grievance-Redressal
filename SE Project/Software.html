@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Architecture</title>
+</head>
+<style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+<body>
+    <h1 style="text-align: right;"> Course Registration System </h1>
+    <h1 style="text-align: right;">Software Architecture Document</h1>
+    <h3 style="text-align: right;"> Version 1.0</h3>
+    <h1 style="text-align: center;"> Revision History</h1>
+
+    <table style="width: 90%; border: 1;">
+        <tr>
+            <th>Date</th>
+            <th>Version</th>
+            <th>Description</th>
+            <th>Author</th>
+        </tr>
+
+        <tr>
+            <td>21/March/1999</td>
+            <td>1.0</td>
+            <td>Software Architecture Document generated using Rational SoDA template and Rational Rose model.</td>
+            <td>S.Johnson</td>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td style="width: 50%;"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <h1 style="text-align: center;">Table of Contents</h1>
+
+    <ul> <a href="#Introduction">1. Introduction</a>
+        <ol><a href="#Purpose">    1.1 Purpose</a></ol>
+        <ol><a href="#Scope">    1.2  Scope</a></ol>
+        <ol><a href="#Defi">    1.3 Definitions, Acronyms and Abbreviations</a></ol>
+        <ol><a href="#Ref">    1.4 References</a></ol>
+    </ul>
+
+    <ul>
+        <a href="#2">2.   Architectural Representation</a>
+    </ul>
+
+    <ul>
+        <a href="#3">3.   Architectural Goals and Constraints</a>
+    </ul>
+
+    <ul>
+        <a href="#4">4.  Use-Case View</a>
+        <ol><a href="4.1">  4.1 Architecturally-Significant Use Cases</a></ol>
+    </ul>
+
+    <ul>
+        <a href="5">5.   Logical View</a>
+        <ol><a href="5.1">  5.1 Architecture Overview – Package and Subsystem Layering</a></ol>
+    </ul>
+
+    <ul>
+        <a href="#6">6.   Process View</a>
+        <ol><a href="6.1">6.1 Processes</a></ol>
+        <ol><a href="6.2">6.2 Process to Design Elements</a></ol>
+        <ol><a href="6.3">6.3 Process Model to Design Model Dependencies</a></ol>
+        <ol><a href="6.4">6.4 Processes to the Implementation</a></ol>
+    </ul>
+
+    <ul>
+        <a href="#7">7.   Deployment View</a>
+        <ol><a href="7.1">  7.1 External Desktop PC</a></ol>
+        <ol><a href="7.2"> 7.2 Desktop PC</a></ol>
+        <ol><a href="7.3"> 7.3 Registration Server</a></ol>
+        <ol><a href="7.4">7.4 Course Catalog </a></ol>
+        <ol><a href="7.5"> 7.5 Billing System </a></ol> 
+    </ul>
+
+    <ul>
+        <a href="#8">8.   Size and Performance</a>
+    </ul>
+
+    <ul>
+        <a href="#9"> 9.   Quality</a>
+    </ul>
+
+    <h1 style="text-align: center;">Software Architecture Document</h1>
+
+    <div id="Introduction">
+        <h3><b>1. Introduction </b></h3>
+
+    <div id="Purpose">
+        <h4><b>1.1 Purpose</b></h4>
+        <li>
+            <ol>a) Enhance Ci
+
+            zen Engagement: Provide a user-friendly pla
+            
+            orm for ci
+            
+            zens to easily report civic
+            
+            issues.</ol>
+            <ol> b) Improve Transparency and Accountability: Offer a transparent system for tracking the status of
+            grievances and holding relevant authori
+            
+            es accountable.</ol>
+            
+            <ol> c) Increase Efficiency in Grievance Redressal: Streamline the process of receiving, processing, and
+            resolving grievances, leading to faster resolu
+            on
+            mes.</ol>
+            
+            <ol> d) Data-Driven Decision Making: Collect valuable data on the types and frequency of civic issues,
+            enabling be
+            
+            er planning and resource alloca
+            on.</ol>
+            
+           <ol> e) Improve Public Services: Ul
+            
+            mately, contribute to the improvement of public services and the
+            
+            overall quality of life for ci
+            zens.</ol></li>
+    </div>
+
+    <div id="Scope">
+        <h4><b>1.2 Scope</b></h4>
+        <li>
+            <ol>a) Ci
+                zen Interface: Issue submission with image upload, status tracking, no
+                fica
+                ons, and
+                
+                feedback mechanisms.</ol>
+               <ol> b) Admin Dashboard: Management of submi
+                
+                ed issues, assignment to relevant departments,
+                
+                monitoring progress, genera
+                
+                ng reports, and user management.</ol>
+                
+              <ol>  c) No
+                fica
+                on System: Automated no
+                fica
+                ons to ci
+                zens regarding the status of their grievances
+                
+                and to administrators regarding new submissions or updates.</ol>
+               <ol> d) Repor
+                
+                ng and Analy
+                
+                cs: Genera
+                
+                on of reports on grievance trends, resolu
+                on
+                mes, and
+                
+                other key metrics.</ol>
+        </li>
+    </div>
+
+    <div id="Defi">
+        <h4><b>1.3 Definitions, Acronyms and Abbreviations</b></h4>
+        <table style="width: 90%; border: 1;">
+            <tr>
+            <th>Term</th>
+            <th>Defination</th>
+            </tr>
+        <tr>
+            <td>PRGS</td>
+            <td>Public Grievance Redressal System</td>
+        </tr>
+        <tr>
+            <td>Admin</td>
+            <td>Administrator of the PGRS</td>
+
+        </tr>
+
+        <tr>
+            <td>Citizen</td>
+            <td>User of the PGRS who submits grievances</td>
+        </tr>
+        <tr>
+            <td>Grievance</td>
+            <td>A complaint or issue reported by a citizen regarding a civic problem</td>
+        </tr>
+        <tr>
+            <td>Resolution</td>
+            <td>The act of addressing and resolving a grievance</td>
+        </tr>
+        <tr>
+            <td>Dashboard</td>
+            <td>The administrative interface for managing the PGRS</td>
+        </tr>
+        </table >
+    </div>
+
+    <div id="Ref">
+        <h4><b>1.4 References</b></h4>
+        <table>
+            <tr>
+                <th>Reference</th>
+                <th>Version</th>
+            </tr>
+            <tr>
+                <td>IEEE Recommended Practice for Software Requirements Specifications</td>
+                <td>IEEE Std 830-1998</td>
+            </tr>
+            <tr>
+                <td>Ergonomics of human-system
+                    interaction -- Part 11: Usability:
+                    Definitions and concepts</td>
+                <td>ISO 9241-11:2018</td>
+            </tr>
+            <tr>
+            <tr></tr>
+                <td>OWASP Top 10:2021</td>
+                <td>OWASP Top 10:2021</td>
+            </tr>
+            <tr>
+                <td>Web Content Accessibility Guidelines
+                    Database System Concepts.
+                    Software Engineering.
+                    The NIST Definition of Cloud Computing</td>
+                    <td>WCAG 2.1</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+    <div id="2">
+        <h4><b>2.   Architectural Representation</b></h4>
+        <p>This document presents the architecture of the Public Grievance Redressal System as a series of views: use case view, logical view, process view, and deployment view. There is no separate implementation view described in this document. These views are based on an underlying Unified Modeling Language (UML) model developed using Rational Rose.
+
+        </p>
+    </div>
+
+    <div  id="3">
+        <h4><b>3.   Architectural Goals and Constraints</b></h4>
+        <p>There are some key requirements and system constraints that have a significant bearing on the architecture. They are:
+        </p>
+        <ul>
+            <li>Integration with Legacy Systems:These systems will provide crucial information like user location, issue categories, and historical data on recurring issues in specific areas. Integration should be seamless, supporting multiple data formats and standards that these databases follow.
+
+            </li>
+            <li>Secure Data Transmission and Storage:Data stored in the system should also be encrypted at rest, ensuring compliance with relevant data privacy laws and government policies. Regular backups and disaster recovery mechanisms must be in place to prevent data loss
+            </li>
+            <li>Access Control and Role Management:Different types of users (citizens, grievance officers, and administrators) must have role-based access to the system. Citizens should only be able to view and modify their own grievances, grievance officers should have access only to complaints assigned to them, and administrators should have access to all system data.
+            </li>
+            <li>Scalability:The system should be scalable to accommodate a large and growing user base. In the event of a sudden spike in reported grievances, such as during natural disasters or widespread civic disruptions, the system must handle thousands of complaints concurrently without affecting performance. 
+            </li>
+        </ul>
+    </div>
+    
+</body>
+</html>
