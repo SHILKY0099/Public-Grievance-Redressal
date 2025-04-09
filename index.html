@@ -187,10 +187,10 @@
             </div>
 
             <div class="dashboard-menu">
-                <div class="dashboard-menu-item active" onclick="showDashboardContent('submit-grievance')">Submit Grievance</div>
-                <div class="dashboard-menu-item" onclick="showDashboardContent('my-grievances')">My Grievances</div>
-                <div class="dashboard-menu-item" onclick="showDashboardContent('notifications')">Notifications</div>
-                <div class="dashboard-menu-item" onclick="showDashboardContent('profile')">My Profile</div>
+                <div class="dashboard-menu-item active" onclick="switchTab('submit-grievance')">Submit Grievance</div>
+                <div class="dashboard-menu-item" onclick="switchTab('my-grievances')">My Grievances</div>
+                <div class="dashboard-menu-item" onclick="switchTab('notifications')">Notifications</div>
+                <div class="dashboard-menu-item" onclick="switchTab('profile')">My Profile</div>
             </div>
 
         
@@ -241,9 +241,18 @@
 
                         <div class="form-group">
                             <label>Location on Map</label>
-                            <p class="text-muted" style="margin-bottom: 10px; font-size: 0.9rem;">Drag the pin to mark the exact location of the issue</p>
+                            <p class="text-muted" style="margin-bottom: 10px; color: black; font-size: 0.9rem;">Drag the pin to mark the exact location of the issue</p>
                             <div class="map-container">
-                                <img src="https://www.google.co.in/maps" alt="Map Placeholder" style="max-width: 100%; height: auto;">
+                                
+                                <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.843675112847!2d-122.08424928469253!3d37.42206597982554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02f741275b%3A0xbee4b50f2b3ec3bb!2sGoogleplex!5e0!3m2!1sen!2sin!4v1618580489052!5m2!1sen!2sin"
+      width="200%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
                             </div>
                         </div>
 
@@ -266,7 +275,146 @@
                     </form>
                 </div>
             </div>
+ <!-- My Grievances Content -->
+ <div id="my-grievances" class="dashboard-content">
+  <h2>My Submitted Grievances</h2>
+  <!-- Your grievances list content here -->
+  <div class="filters-row">
+      <div class="search-box">
+          <input type="text" placeholder="Search grievances..." class="form-control">
+      </div>
+      <div class="filter-options">
+          <select class="form-control">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="resolved">Resolved</option>
+              <option value="rejected">Rejected</option>
+          </select>
+      </div>
+  </div>
+  
+  <!-- Grievance items would go here -->
+</div>
 
+<!-- Notifications Content -->
+<div id="notifications" class="dashboard-content">
+  <h2>Notifications</h2>
+  <!-- Your notifications content here -->
+  <div class="notifications-header">
+      <div class="notification-filter">
+          <select class="form-control">
+              <option value="all">All Notifications</option>
+              <option value="unread">Unread Only</option>
+              <option value="updates">Updates</option>
+              <option value="responses">Official Responses</option>
+          </select>
+      </div>
+      <div class="notification-actions">
+          <button class="btn btn-sm btn-primary">Mark All as Read</button>
+      </div>
+  </div>
+  
+  <!-- Notification items would go here -->
+</div>
+
+
+
+<!-- My Profile Content -->
+<div id="my-profile" class="dashboard-content">
+  <h2>My Profile</h2>
+  <!-- Your profile content here -->
+  <div class="profile-section">
+      <div class="profile-header">
+          <div class="profile-avatar">
+              <img src="/profile.jpg" alt="Profile Picture">
+              <button class="btn btn-sm btn-primary change-photo">Change Photo</button>
+          </div>
+          <!-- Profile stats would go here -->
+      </div>
+      
+      <div class="profile-tabs">
+          <button class="profile-tab active" data-tab="personal">Personal Information</button>
+          <button class="profile-tab" data-tab="security">Security Settings</button>
+          <button class="profile-tab" data-tab="notifications">Notification Preferences</button>
+      </div>
+      
+      <!-- Profile tab content would go here -->
+  </div>
+</div>
+</div>
+
+<script>
+// Function to switch between tabs
+function switchTab(tabId) {
+  // Hide all content sections
+  const contentSections = document.querySelectorAll('.dashboard-content');
+  contentSections.forEach(section => {
+      section.classList.remove('active');
+  });
+  
+  // Show the selected content section
+  document.getElementById(tabId).classList.add('active');
+  
+  // Update active tab styling
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+      tab.classList.remove('active');
+  });
+  
+  // Find the clicked tab based on the content it controls
+  let activeTabId;
+  switch(tabId) {
+      case 'submit-grievance':
+          activeTabId = 'submit-tab';
+          break;
+      case 'my-grievances':
+          activeTabId = 'grievances-tab';
+          break;
+      case 'notifications':
+          activeTabId = 'notifications-tab';
+          break;
+      case 'my-profile':
+          activeTabId = 'profile-tab';
+          break;
+  }
+  
+  document.getElementById(activeTabId).classList.add('active');
+}
+
+// Function to handle profile sub-tabs
+function switchProfileTab(tabName) {
+  // Hide all profile tab content
+  const tabContents = document.querySelectorAll('.profile-tab-content');
+  tabContents.forEach(content => {
+      content.style.display = 'none';
+  });
+  
+  // Show the selected tab content
+  document.getElementById(tabName + '-tab').style.display = 'block';
+  
+  // Update active tab styling
+  const tabs = document.querySelectorAll('.profile-tab');
+  tabs.forEach(tab => {
+      tab.classList.remove('active');
+  });
+  
+  // Find and activate the clicked tab
+  const clickedTab = document.querySelector(`.profile-tab[data-tab="${tabName}"]`);
+  clickedTab.classList.add('active');
+}
+
+// Set up event listeners for profile tabs
+document.addEventListener('DOMContentLoaded', function() {
+  const profileTabs = document.querySelectorAll('.profile-tab');
+  profileTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+          switchProfileTab(this.getAttribute('data-tab'));
+      });
+  });
+});
+</script>
+             
 <!-- Login Section -->
 <section id="login" class="login">
     <div class="auth-container">
@@ -288,7 +436,7 @@
             </div>
             <button type="button" class="btn btn-primary" style="width: 100%" onclick="handleLogin()">Login</button>
         </form>
-        <p style="color: black;">Don't have an account? <a href="./sign.html" onclick="showSection('signup')">Sign up</a></p>
+        <p style="color: black;">Don't have an account? <a href="/index2.html" onclick="showSection('signup')">Sign up</a></p>
     </div>
 
 
@@ -308,7 +456,7 @@
             <div class="social-icons">
               <a href="https://www.linkedin.com/in/shilky-149073226/" class="icon"><i class="fa-brands fa-linkedin"></i></a>
               <a href="https://www.instagram.com/shilky__0099/#" class="icon"><i class="fa-brands fa-instagram"></i></a>
-              <a href="shilky0099@gmail.com" class="icon"><i class="fa-solid fa-envelope"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shilky0099@gmail.com&su=Hello&body=Hi%20there!" target="_blank" class="icon"><i class="fa-solid fa-envelope"></i></a>
             </div>
           </div>
           
@@ -322,7 +470,7 @@
             <div class="social-icons">
               <a href="https://www.linkedin.com/in/anisha-tiwary-1181b0276/" class="icon"><i class="fa-brands fa-linkedin"></i></a>
               <a href="https://www.instagram.com/_.anishat._?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="icon"><i class="fa-brands fa-instagram"></i></a>
-              <a href="2230066@kiit.ac.in" class="icon"><i class="fa-solid fa-envelope"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=2230066@kiit.ac.in&su=Hello&body=Hi%20there!" target="_blank"  class="icon"><i class="fa-solid fa-envelope"></i></a>
             </div>
           </div>
 
@@ -336,7 +484,7 @@
             <div class="social-icons">
               <a href="https://www.linkedin.com/in/taruna-das-aab33a251/" class="icon"><i class="fa-brands fa-linkedin"></i></a>
               <a href="https://www.instagram.com/_taruna2004_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="icon"><i class="fa-brands fa-instagram"></i></a>
-              <a href="#" class="icon"><i class="fa-solid fa-envelope"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=2230135@kiit.ac.in&su=Hello&body=Hi%20there!" target="_blank"  class="icon"><i class="fa-solid fa-envelope"></i></a>
             </div>
           </div>
           
@@ -350,37 +498,14 @@
             <div class="social-icons">
               <a href="#" class="icon"><i class="fa-brands fa-linkedin"></i></a>
               <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
-              <a href="#" class="icon"><i class="fa-solid fa-envelope"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=2230130@kiit.ac.in&su=Hello&body=Hi%20there!" target="_blank" class="icon"><i class="fa-solid fa-envelope"></i></a>
             </div>
           </div>
         </div>
       </div>
 
     
-            <!-- My Grievances Content -->
-            <div id="my-grievances" class="dashboard-content">
-                <div class="card">
-                    <div class="form-row" style="align-items: center;">
-                        <div class="form-group" style="flex: 2;">
-                            <input type="text" class="form-control" placeholder="Search by grievance ID, title, or location">
-                        </div>
-                        <div class="form-group" style="flex: 1;">
-                            <select class="form-control">
-                                <option value="">All Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="resolved">Resolved</option>
-                                <option value="rejected">Rejected</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="flex: 0 0 auto;">
-                            <button class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-
-                    <div class="grievance-list">
-        </div>
-
+            
          
     </body>
     </html>
